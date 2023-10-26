@@ -11,7 +11,7 @@ import SingleCountry from './pages/SingleCountry';
 const App = () => {
   return (
     <Router>
-      <Container>
+      <Container className="my-3 bg-white border border-secondary shadow rounded">
         <Row>
           <Col>
             <Navbar />

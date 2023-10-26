@@ -1,3 +1,6 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Container, Row, Col } from "react-bootstrap";
+
 const App = () => {
   return (
     <>

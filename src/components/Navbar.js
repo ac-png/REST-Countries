@@ -1,6 +1,9 @@
+import { Link } from "react-router-dom";
+import { Button } from "react-bootstrap";
+
 const Navbar = () => {
     return (
-        <h1>Navbar</h1>
+        <Link to="/"><Button className="m-3" as="input" type="button" value="Home" /></Link>
     );
 }
 

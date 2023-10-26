@@ -6,6 +6,7 @@ import Navbar from './components/Navbar';
 
 // Import Pages
 import Home from './pages/Home';
+import SingleCountry from './pages/SingleCountry';
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
             <Navbar />
             <Routes>
               <Route path='/' element={<Home />} />
+              <Route path='/country/:name' element={<SingleCountry />} />
             </Routes>
           </Col>
         </Row>

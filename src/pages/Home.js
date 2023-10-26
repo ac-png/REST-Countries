@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { Row } from "react-bootstrap";
 
 import CountryCard from '../components/CountryCard';
 
@@ -18,8 +19,14 @@ const Home = () => {
         });
     }, []);
 
+    let countriesCards = countriesList.map((country, i) => {
+        return <CountryCard key={i} flag={country.flags.png} name={country.name.official} region={country.region} />
+    });
+
     return (
-        <h1>Home</h1>
+        <Row md={3} xs={1}>
+            {countriesCards}
+        </Row>
     );
 }
 

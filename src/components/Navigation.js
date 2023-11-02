@@ -1,10 +1,11 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { Container, Nav, Navbar } from "react-bootstrap";
+import { Link, useLocation } from "react-router-dom";
+import { Nav, Navbar } from "react-bootstrap";
 
 const Navigation = () => {
   const [regions, setRegions] = useState([]);
+  const location = useLocation();
 
   useEffect(() => {
     axios
@@ -23,18 +24,28 @@ const Navigation = () => {
     <>
       <h1 className="m-4 text-center">REST Countries</h1>
       <Navbar className="mx-5" expand="lg">
-        <Link className="nav-link bg-primary p-2 rounded text-bg-primary" to={`/`}>Home</Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav>
+            <Nav.Link as={Link} to="/" className={location.pathname === '/' ? 'active' : ''}>
+              Home
+            </Nav.Link>
             {regions.map((region, index) => (
-                <Link key={index} to={`/region/${region}`} className="nav-link">{region}</Link>
+              <Nav.Item key={index}>
+                <Nav.Link
+                  as={Link}
+                  to={`/region/${region}`}
+                  className={location.pathname === `/region/${region}` ? 'active' : ''}
+                >
+                  {region}
+                </Nav.Link>
+              </Nav.Item>
             ))}
-          </Nav>  
+          </Nav>
         </Navbar.Collapse>
-    </Navbar>
+      </Navbar>
     </>
-  )
-}
+  );
+};
 
 export default Navigation;

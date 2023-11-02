@@ -15,7 +15,6 @@ const Region = () => {
         axios
         .get(`https://restcountries.com/v3.1/region/${regionName}`)
         .then((response) => {
-            console.log(response.data);
             setRegion(response.data)
         })
         .catch((error) => {
@@ -30,15 +29,21 @@ const Region = () => {
     }
 
     return (
-        <div className=" bg-light p-4">
-            <Row>
-                {region.map((country, i) => (
-                    <Col key={i} sm={12} md={6} lg={3}>
-                        <CountryCard flag={country.flags.png} name={country.name.common} region={country.region} population={country.population} capital={country.capital} />
-                    </Col>
-                ))}
-            </Row>
-        </div>
+        <div className="bg-light p-4">
+        <Row xs={1} sm={2} md={3} lg={4} className="g-3">
+            {region.map((country, i) => (
+                <Col key={i}>
+                    <CountryCard
+                        flag={country.flags.png}
+                        name={country.name.common}
+                        region={country.region}
+                        population={country.population}
+                        capital={country.capital}
+                    />
+                </Col>
+            ))}
+        </Row>
+    </div>
     );
 }
 

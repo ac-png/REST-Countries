@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 import { Row, Col, Spinner, Image } from "react-bootstrap";
@@ -28,9 +28,9 @@ const SingleCountry = () => {
     }
 
     return (
-        <Row>
+        <Row className="m-4">
             <Col>
-                <Image src={country.flags.png} />
+                <Image className="rounded-pill" src={country.flags.png} />
             </Col>
             <Col>
                 <p><b>Common Name: </b>{country.name.common}</p>

@@ -2,26 +2,28 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 
 // Import Components
-import Navbar from './components/Navbar';
+import Navigation from './components/Navigation';
 
 // Import Pages
 import Home from './pages/Home';
 import SingleCountry from './pages/SingleCountry';
+import Region from './pages/Region';
 
-const App = () => {
+const App = () => {  
   return (
     <Router>
-      <Container className="my-3 bg-white border border-secondary shadow rounded">
+      <>
         <Row>
           <Col>
-            <Navbar />
+            <Navigation />
             <Routes>
               <Route path='/' element={<Home />} />
               <Route path='/country/:name' element={<SingleCountry />} />
+              <Route path='/region/:regionName' element={<Region />} />
             </Routes>
           </Col>
         </Row>
-      </Container>
+      </>
     </Router>
   );
 }

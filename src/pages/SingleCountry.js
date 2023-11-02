@@ -30,16 +30,15 @@ const SingleCountry = () => {
     return (
         <Row className="m-4">
             <Col>
-                <Image className="rounded-pill" src={country.flags.png} />
+                <Image style={{ height: '200px' }}  src={country.flags.png} />
             </Col>
             <Col>
-                <p><b>Common Name: </b>{country.name.common}</p>
+                <h2 className="fw-bolder mb-4">{country.name.common}</h2>
                 <p><b>Official Name: </b>{country.name.official}</p>
+                <p><b>Population: </b>{country.population}</p>
                 <p><b>Region: </b>{country.region}</p>
                 <p><b>Subregion: </b>{country.subregion}</p>
                 <p><b>Capital: </b>{country.capital}</p>
-                <p><b>Currency: </b>{Object.values(country.currencies)[0].name}</p>
-                <p><b>Native Name: </b>{Object.values(country.name.nativeName)[0].common}</p>
             </Col>
         </Row>
     );

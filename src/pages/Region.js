@@ -29,7 +29,7 @@ const Region = () => {
     }
 
     return (
-        <div className="bg-light p-4">
+        <div className="p-4">
         <Row xs={1} sm={2} md={3} lg={4} className="g-3">
             {region.map((country, i) => (
                 <Col key={i}>

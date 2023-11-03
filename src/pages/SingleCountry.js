@@ -39,7 +39,7 @@ const SingleCountry = () => {
 
     return (
         <Container className="mb-4">
-            <h1 className="text-center m-2">{country.flag} {country.name.official} {country.flag}</h1>
+            <h2 className="text-center m-2">{country.flag} {country.name.common} {country.flag}</h2>
             <ul className="mt-4 list-group">
                 {country.name?.nativeName &&
                     Object.keys(country.name.nativeName).map(language => {
@@ -64,23 +64,23 @@ const SingleCountry = () => {
                 <li className="list-group-item"><b>Region: </b> {country.region}</li>
                 <li className="list-group-item"><b>Subregion: </b>{country.subregion}</li>
                 <li className="list-group-item"><b>Languages: </b>{Object.values(country.languages).join(', ')}</li>
-                <li className="list-group-item"><b>Population: </b>{country.population}</li>
-                <li className="list-group-item"><b>Area: </b>{country.area} square kilometers</li>
+                <li className="list-group-item"><b>Population: </b>~ {country.population} people</li>
+                <li className="list-group-item"><b>Area: </b>~ {country.area} square kilometers</li>
                 <li className="list-group-item"><b>Currency: </b>{Object.values(country.currencies)[0].name} ({Object.values(country.currencies)[0].symbol})</li>
                 <li className="list-group-item"><b>Timezones: </b>{country.timezones.join(', ')}</li>
                 <li className="list-group-item"><b>Continent: </b>{country.continents.join(', ')}</li>
-                <li className="list-group-item"><b>Maps</b>
+                <li className="list-group-item"><b>Maps:</b>
                     <ul>
                         <li><b>Google Maps: </b><a href={country.maps.googleMaps}>Open in Google Maps</a></li>
                         <li><b>OpenStreetMaps: </b><a href={country.maps.openStreetMaps}>Open in OpenStreetMaps</a></li>
                     </ul>
                 </li>
                 
-                <li className="list-group-item mb-2"><b>Flag: </b><img className="mt-2" style={{ maxHeight: '50px' }} src={country.flags.png} alt="Iceland Flag" /></li>
+                <li className="list-group-item mb-2"><b>Flag: </b><img className="mt-2 border" style={{ maxHeight: '50px' }} src={country.flags.png} alt="Iceland Flag" /></li>
                 <li className="list-group-item"><b>Geographical Coordinates: </b>
                     <ul>
                         <li><b>{country.name.common}: </b>Latitude {country.latlng[0]}, Longitude {country.latlng[1]}</li>
-                        <li><b>{country.capital}: </b>Latitude {country.capitalInfo.latlng[0]}, Longitude {country.capitalInfo.latlng[1]}</li>
+                        <li><b>{country.capital} (Capital): </b>Latitude {country.capitalInfo.latlng[0]}, Longitude {country.capitalInfo.latlng[1]}</li>
                     </ul>
                 </li>
             </ul>

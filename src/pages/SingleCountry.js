@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Row, Col, Spinner, Image, Dropdown } from "react-bootstrap";
+import { Container, Spinner } from "react-bootstrap";
 
 const SingleCountry = () => {
     let { name } = useParams();
@@ -22,7 +22,6 @@ const SingleCountry = () => {
                 axios
                     .get(`https://dataservice.accuweather.com/locations/v1/cities/${countryCca2}?apikey=${apiKey}`)
                     .then((cityResponse) => {
-                        console.log(cityResponse.data);
                         setCityList(cityResponse.data);
                     })
                     .catch((cityError) => {
@@ -39,38 +38,76 @@ const SingleCountry = () => {
     }
 
     return (
-        <>
-            <Row className="m-4">
-                <Col>
-                    <Image style={{ height: '200px' }} src={country?.flags?.png} />
-                </Col>
-                <Col>
-                    <h2 className="fw-bolder mb-4">{country.name?.common}</h2>
-                    <p><b>Official Name: </b>{country.name?.official}</p>
-                    <p><b>Population: </b>{country.population}</p>
-                    <p><b>Region: </b>{country.region}</p>
-                    <p><b>Subregion: </b>{country.subregion}</p>
-                    <p><b>Capital: </b>{country.capital}</p>
-                    <p style={{ float: 'left' }}>
-                        <b>Weather in City: </b>
-                        <Dropdown style={{ float: 'right', marginLeft: '10px' }}>
-                            <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                Cities
-                            </Dropdown.Toggle>
-
-                            <Dropdown.Menu style={{ maxHeight: '200px', overflowY: 'auto' }}>
-                                {cityList.map((city, i) => (
-                                    <Col key={i}>
-                                        <Dropdown.Item key={i}>{city.EnglishName}</Dropdown.Item>
-                                    </Col>
-                                ))}
-                            </Dropdown.Menu>
-                        </Dropdown>
-                    </p>
-                </Col>
-            </Row>
-        </>
+        <Container className="mb-4">
+            <h1 className="text-center m-2">{country.flag} {country.name.official} {country.flag}</h1>
+            <ul className="mt-4 list-group">
+                {country.name?.nativeName &&
+                    Object.keys(country.name.nativeName).map(language => {
+                    if (language !== 'eng') {
+                        const nativeName = country.name.nativeName[language];
+                        return (
+                            <>
+                                <li className="list-group-item"><b>Native Names ({language}):</b>
+                                    <ul>
+                                        <li>Official: {nativeName.official}</li>
+                                        <li>Common: {nativeName.common}</li>
+                                    </ul>
+                                </li>
+                            </>
+                    );
+                }
+                return null;
+                })}
+                <li className="list-group-item"><b>Top-Level-Domain: </b>{country.tld}</li>
+                <li className="list-group-item"><b>Country Codes: </b>{country.cca2}, {country.ccn3}, {country.cioc}</li>
+                <li className="list-group-item"><b>Capital: </b>{country.capital[0]}</li>
+                <li className="list-group-item"><b>Region: </b> {country.region}</li>
+                <li className="list-group-item"><b>Subregion: </b>{country.subregion}</li>
+                <li className="list-group-item"><b>Languages: </b>{Object.values(country.languages).join(', ')}</li>
+                <li className="list-group-item"><b>Population: </b>{country.population}</li>
+                <li className="list-group-item"><b>Area: </b>{country.area} square kilometers</li>
+                <li className="list-group-item"><b>Currency: </b>{Object.values(country.currencies)[0].name} ({Object.values(country.currencies)[0].symbol})</li>
+                <li className="list-group-item"><b>Timezones: </b>{country.timezones.join(', ')}</li>
+                <li className="list-group-item"><b>Continent: </b>{country.continents.join(', ')}</li>
+                <li className="list-group-item"><b>Maps</b>
+                    <ul>
+                        <li><b>Google Maps: </b><a href={country.maps.googleMaps}>Open in Google Maps</a></li>
+                        <li><b>OpenStreetMaps: </b><a href={country.maps.openStreetMaps}>Open in OpenStreetMaps</a></li>
+                    </ul>
+                </li>
+                
+                <li className="list-group-item mb-2"><b>Flag: </b><img className="mt-2" style={{ maxHeight: '50px' }} src={country.flags.png} alt="Iceland Flag" /></li>
+                <li className="list-group-item"><b>Geographical Coordinates: </b>
+                    <ul>
+                        <li><b>{country.name.common}: </b>Latitude {country.latlng[0]}, Longitude {country.latlng[1]}</li>
+                        <li><b>{country.capital}: </b>Latitude {country.capitalInfo.latlng[0]}, Longitude {country.capitalInfo.latlng[1]}</li>
+                    </ul>
+                </li>
+            </ul>
+        </Container>
     );
 };
 
 export default SingleCountry;
+
+// Name: Iceland (Ísland in Icelandic)
+// Top-Level Domain: .is
+// Country Codes: IS, 352, ISL
+// Capital: Reykjavik
+// Region: Europe
+// Subregion: Northern Europe
+// Languages: Icelandic
+// Population: Approximately 366,425 people
+// Area: 103,000 square kilometers
+// Currency: Icelandic króna (ISK), symbolized as "kr"
+// Flag: 🇮🇸
+// Timezones: UTC
+// Continent: Europe
+// Google Maps: Iceland Google Maps
+// OpenStreetMaps: Iceland OpenStreetMaps
+// Coat of Arms: Coat of Arms of Iceland
+// Flag Images: Available in PNG and SVG formats: Iceland Flag, Iceland Flag SVG
+// Geographical Coordinates:
+// Iceland: Latitude 65.0, Longitude -18.0
+// Capital Reykjavik: Latitude 64.15, Longitude -21.95
+// Postal Code Format: Three digits (e.g., "###")

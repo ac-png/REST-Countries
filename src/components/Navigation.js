@@ -22,7 +22,7 @@ const Navigation = () => {
 
   return (
     <>
-      <h1 className="display-4 m-4 text-center">REST Countries</h1>
+      <Link to="/" className="text-decoration-none text-black display-4 m-4 text-center d-block">REST Countries</Link>
       <Navbar className="mx-5" expand="lg">
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">

@@ -1,7 +1,9 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Container, Spinner } from "react-bootstrap";
+import { Container, Spinner, Row, Col } from "react-bootstrap";
+
+import CountryCard from "../components/CountryCard";
 
 const SingleCountry = () => {
     let { name } = useParams();
@@ -10,13 +12,27 @@ const SingleCountry = () => {
 
     const [country, setCountry] = useState(null);
     const [cityList, setCityList] = useState(null);
+    const [borders, setBorders] = useState(null);
 
     useEffect(() => {
         axios
-            .get(`https://restcountries.com/v3.1/name/${name}?fullText=true`)
+            .get(`https://restcountries.com/v3.1/all`)
             .then((response) => {
-                const countryData = response.data[0];
-                setCountry(countryData);
+                const countryData = response.data.filter((result) => result.name.common == name);
+                const borderData = [];
+                setCountry(countryData[0]);
+
+                if (countryData[0].borders) {
+                    countryData[0].borders.forEach((border) => {
+                        borderData.push(response.data.filter((result) => result.cca3 == border))
+                    });
+    
+                    setBorders(borderData);
+                } else {
+                    setBorders([])
+                }
+
+                
 
                 const countryCca2 = countryData.cca2;
                 axios
@@ -76,7 +92,7 @@ const SingleCountry = () => {
                     </ul>
                 </li>
                 
-                <li className="list-group-item mb-2"><b>Flag: </b><img className="mt-2 border" style={{ maxHeight: '50px' }} src={country.flags.png} alt="Iceland Flag" /></li>
+                <li className="list-group-item mb-2"><b>Flag: </b><img className="mt-2 border" style={{ maxHeight: '50px' }} src={country.flags.png} alt="flag" /></li>
                 <li className="list-group-item"><b>Geographical Coordinates: </b>
                     <ul>
                         <li><b>{country.name.common}: </b>Latitude {country.latlng[0]}, Longitude {country.latlng[1]}</li>
@@ -84,30 +100,22 @@ const SingleCountry = () => {
                     </ul>
                 </li>
             </ul>
+            <div className="p-4">
+                <Row xs={1} sm={2} md={3} lg={4} className="g-3">
+                    {borders.map((borderCountry, i) => (
+                        <CountryCard
+                            key={i}
+                            flag={borderCountry[0].flags.png}
+                            name={borderCountry[0].name.common}
+                            region={borderCountry[0].region}
+                            population={borderCountry[0].population}
+                            capital={borderCountry[0].capital}
+                        />
+                    ))}
+                </Row>
+            </div>
         </Container>
     );
 };
 
 export default SingleCountry;
-
-// Name: Iceland (Ísland in Icelandic)
-// Top-Level Domain: .is
-// Country Codes: IS, 352, ISL
-// Capital: Reykjavik
-// Region: Europe
-// Subregion: Northern Europe
-// Languages: Icelandic
-// Population: Approximately 366,425 people
-// Area: 103,000 square kilometers
-// Currency: Icelandic króna (ISK), symbolized as "kr"
-// Flag: 🇮🇸
-// Timezones: UTC
-// Continent: Europe
-// Google Maps: Iceland Google Maps
-// OpenStreetMaps: Iceland OpenStreetMaps
-// Coat of Arms: Coat of Arms of Iceland
-// Flag Images: Available in PNG and SVG formats: Iceland Flag, Iceland Flag SVG
-// Geographical Coordinates:
-// Iceland: Latitude 65.0, Longitude -18.0
-// Capital Reykjavik: Latitude 64.15, Longitude -21.95
-// Postal Code Format: Three digits (e.g., "###")

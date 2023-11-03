@@ -1,7 +1,8 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
-import { Container, Spinner, Row, Col } from "react-bootstrap";
+import { Container, Spinner, Row, Col, Dropdown } from "react-bootstrap";
 
 import CountryCard from "../components/CountryCard";
 
@@ -32,9 +33,7 @@ const SingleCountry = () => {
                     setBorders([])
                 }
 
-                
-
-                const countryCca2 = countryData.cca2;
+                const countryCca2 = countryData[0].cca2;
                 axios
                     .get(`https://dataservice.accuweather.com/locations/v1/cities/${countryCca2}?apikey=${apiKey}`)
                     .then((cityResponse) => {
@@ -97,6 +96,18 @@ const SingleCountry = () => {
                     <ul>
                         <li><b>{country.name.common}: </b>Latitude {country.latlng[0]}, Longitude {country.latlng[1]}</li>
                         <li><b>{country.capital} (Capital): </b>Latitude {country.capitalInfo.latlng[0]}, Longitude {country.capitalInfo.latlng[1]}</li>
+                    </ul>
+                </li>
+                <li className="list-group-item">
+                    <b>Cities: </b>
+                    <ul style={{ maxHeight: '200px', overflowY: 'auto' }} className="mt-2 list-group">
+                        {cityList && cityList.length > 0 ? (
+                            cityList.map((city, i) => (
+                                    <li className="list-group-item" key={i}><Link className="text-reset text-decoration-none">{city.EnglishName}</Link></li>
+                            ))
+                        ) : (
+                            <p>No cities available</p>
+                        )}
                     </ul>
                 </li>
             </ul>

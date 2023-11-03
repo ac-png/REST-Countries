@@ -23,7 +23,7 @@ const App = () => {
               <Route path='/country/:name' element={<SingleCountry />} />
               <Route path='/region/:regionName' element={<Region />} />
               <Route path='*' element={<PageNotFound />} />
-              <Route path='/city/:englishName' element={<Weather />} />
+              <Route path='/city/:englishName/:Key' element={<Weather />} />
             </Routes>
           </Col>
         </Row>

@@ -117,7 +117,7 @@ const SingleCountry = () => {
                                 onMouseOver={() => handleMouseOver(i)}
                                 onMouseOut={handleMouseOut}
                                 style={{ backgroundColor: hoveredCity === i ? 'lightblue' : 'transparent' }}
-                                ><Link to={`/city/${city.EnglishName}`} className="text-reset text-decoration-none">{city.EnglishName}</Link></li>
+                                ><Link to={`/city/${city.EnglishName}/${city.Key}`} className="text-reset text-decoration-none">{city.EnglishName}</Link></li>
                             ))
                         ) : (
                             <p>No cities available</p>

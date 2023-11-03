@@ -1,8 +1,8 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
-import { Container, Spinner, Row, Col, Dropdown } from "react-bootstrap";
+import { Container, Spinner, Row } from "react-bootstrap";
 
 import CountryCard from "../components/CountryCard";
 
@@ -14,6 +14,14 @@ const SingleCountry = () => {
     const [country, setCountry] = useState(null);
     const [cityList, setCityList] = useState(null);
     const [borders, setBorders] = useState(null);
+
+    const [hoveredCity, setHoveredCity] = useState(null);
+    const handleMouseOver = (cityIndex) => {
+        setHoveredCity(cityIndex);
+    };
+    const handleMouseOut = () => {
+        setHoveredCity(null);
+    };
 
     useEffect(() => {
         axios
@@ -103,7 +111,13 @@ const SingleCountry = () => {
                     <ul style={{ maxHeight: '200px', overflowY: 'auto' }} className="mt-2 list-group">
                         {cityList && cityList.length > 0 ? (
                             cityList.map((city, i) => (
-                                    <li className="list-group-item" key={i}><Link className="text-reset text-decoration-none">{city.EnglishName}</Link></li>
+                                <li
+                                className="list-group-item"
+                                key={i}
+                                onMouseOver={() => handleMouseOver(i)}
+                                onMouseOut={handleMouseOut}
+                                style={{ backgroundColor: hoveredCity === i ? 'lightblue' : 'transparent' }}
+                                ><Link to={`/city/${city.EnglishName}`} className="text-reset text-decoration-none">{city.EnglishName}</Link></li>
                             ))
                         ) : (
                             <p>No cities available</p>

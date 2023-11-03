@@ -9,6 +9,7 @@ import Home from './pages/Home';
 import SingleCountry from './pages/SingleCountry';
 import Region from './pages/Region';
 import PageNotFound from "./pages/PageNotFound";
+import Weather from "./pages/Weather";
 
 const App = () => {  
   return (
@@ -22,6 +23,7 @@ const App = () => {
               <Route path='/country/:name' element={<SingleCountry />} />
               <Route path='/region/:regionName' element={<Region />} />
               <Route path='*' element={<PageNotFound />} />
+              <Route path='/city/:englishName' element={<Weather />} />
             </Routes>
           </Col>
         </Row>

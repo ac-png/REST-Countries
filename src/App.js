@@ -8,6 +8,7 @@ import Navigation from './components/Navigation';
 import Home from './pages/Home';
 import SingleCountry from './pages/SingleCountry';
 import Region from './pages/Region';
+import PageNotFound from "./pages/PageNotFound";
 
 const App = () => {  
   return (
@@ -20,6 +21,7 @@ const App = () => {
               <Route path='/' element={<Home />} />
               <Route path='/country/:name' element={<SingleCountry />} />
               <Route path='/region/:regionName' element={<Region />} />
+              <Route path='*' element={<PageNotFound />} />
             </Routes>
           </Col>
         </Row>

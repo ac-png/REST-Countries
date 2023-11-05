@@ -11,10 +11,10 @@ const Weather = () => {
 
     useEffect(() => {
         axios
-        .get(`http://dataservice.accuweather.com/currentconditions/v1/${Key}?apikey=${apiKey}`)
+        .get(`http://dataservice.accuweather.com/forecasts/v1/daily/1day/${Key}?apikey=${apiKey}&details=true`)
         .then((response) => {
-            console.log(response.data);
-            setWeather(response.data);
+            console.log(response.data.DailyForecasts[0]);
+            setWeather(response.data.DailyForecasts[0]);
         })
         .catch((error) => {
             console.log(error);
@@ -23,7 +23,7 @@ const Weather = () => {
 
     return (
         <Container>
-            <h1>This is the Weather Page.</h1>
+            <h1>{weather.Date}</h1>
         </Container>
     );
 };

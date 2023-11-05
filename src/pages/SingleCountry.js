@@ -29,6 +29,7 @@ const SingleCountry = () => {
             .then((response) => {
                 const countryData = response.data.filter((result) => result.name.common == name);
                 const borderData = [];
+                console.log(countryData[0]);
                 setCountry(countryData[0]);
 
                 if (countryData[0].borders) {

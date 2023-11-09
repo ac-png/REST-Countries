@@ -124,21 +124,22 @@ const SingleCountry = () => {
                         )}
                     </ul>
                 </li>
+                <li className="list-group-item">
+                    <b>Bordering Countries:</b>
+                    <Row xs={1} sm={2} md={3} lg={4} className="mt-1 g-3">
+                        {borders.map((borderCountry, i) => (
+                            <CountryCard
+                                key={i}
+                                flag={borderCountry[0].flags.png}
+                                name={borderCountry[0].name.common}
+                                region={borderCountry[0].region}
+                                population={borderCountry[0].population}
+                                capital={borderCountry[0].capital}
+                            />
+                        ))}
+                    </Row>
+                </li>
             </ul>
-            <div className="p-4">
-                <Row xs={1} sm={2} md={3} lg={4} className="g-3">
-                    {borders.map((borderCountry, i) => (
-                        <CountryCard
-                            key={i}
-                            flag={borderCountry[0].flags.png}
-                            name={borderCountry[0].name.common}
-                            region={borderCountry[0].region}
-                            population={borderCountry[0].population}
-                            capital={borderCountry[0].capital}
-                        />
-                    ))}
-                </Row>
-            </div>
         </Container>
     );
 };

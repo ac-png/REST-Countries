@@ -13,7 +13,6 @@ const Weather = () => {
         axios
         .get(`https://dataservice.accuweather.com/forecasts/v1/daily/1day/${Key}?apikey=${apiKey}&details=true`)
         .then((response) => {
-            console.log(response.data.DailyForecasts[0]);
             setWeather(response.data.DailyForecasts[0]);
         })
         .catch((error) => {

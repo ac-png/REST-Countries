@@ -1,10 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Container, Row, Col } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 
-// Import Components
 import Navigation from './components/Navigation';
 
-// Import Pages
 import Home from './pages/Home';
 import SingleCountry from './pages/SingleCountry';
 import Region from './pages/Region';

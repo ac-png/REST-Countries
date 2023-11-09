@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { Container, Spinner, Row } from "react-bootstrap";
+import { Container, Spinner, Row, Alert, Col } from "react-bootstrap";
 
 import CountryCard from "../components/CountryCard";
 
@@ -87,8 +87,8 @@ const SingleCountry = () => {
                 <li className="list-group-item"><b>Region: </b> {country.region}</li>
                 <li className="list-group-item"><b>Subregion: </b>{country.subregion}</li>
                 <li className="list-group-item"><b>Languages: </b>{Object.values(country.languages).join(', ')}</li>
-                <li className="list-group-item"><b>Population: </b>~ {country.population} people</li>
-                <li className="list-group-item"><b>Area: </b>~ {country.area} square kilometers</li>
+                <li className="list-group-item"><b>Population: </b>~ {country.population.toLocaleString()} people</li>
+                <li className="list-group-item"><b>Area: </b>~ {country.area.toLocaleString()} square kilometers</li>
                 <li className="list-group-item"><b>Currency: </b>{Object.values(country.currencies)[0].name} ({Object.values(country.currencies)[0].symbol})</li>
                 <li className="list-group-item"><b>Timezones: </b>{country.timezones.join(', ')}</li>
                 <li className="list-group-item"><b>Continent: </b>{country.continents.join(', ')}</li>
@@ -125,7 +125,16 @@ const SingleCountry = () => {
                     </ul>
                 </li>
                 <li className="list-group-item">
-                    <b>Bordering Countries:</b>
+                <b>Bordering Countries:</b>
+                {borders.length === 0 ? (
+                    <Row>
+                        <Col xs={12}>
+                            <Alert className="mt-3" variant="danger">
+                                This country has no bordering countries!
+                            </Alert>
+                        </Col>
+                    </Row>
+                ) : (
                     <Row xs={1} sm={2} md={3} lg={4} className="mt-1 g-3">
                         {borders.map((borderCountry, i) => (
                             <CountryCard
@@ -138,6 +147,7 @@ const SingleCountry = () => {
                             />
                         ))}
                     </Row>
+                )}
                 </li>
             </ul>
         </Container>

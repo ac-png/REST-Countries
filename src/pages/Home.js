@@ -12,18 +12,18 @@ const Home = () => {
         axios
             .get(`https://restcountries.com/v3.1/all`)
             .then((response) => {
-                setCountriesList(response.data);
+                const sortedCountries = [...response.data].sort((a, b) => a.name.common.localeCompare(b.name.common));
+
+                setCountriesList(sortedCountries);
             })
             .catch((error) => {
                 console.log(error);
             });
     }, []);
 
-    // Filter countries based on the search query
     const filteredCountries = countriesList.filter((country) =>
         country.name.common.toLowerCase().startsWith(searchTerm.toLowerCase())
     );
-
 
     return (
         <div className="p-4">

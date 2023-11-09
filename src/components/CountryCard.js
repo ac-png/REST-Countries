@@ -23,7 +23,7 @@ const CountryCard = (props) => {
                     </Card.Text>
                     <Card.Text className="mb-0">
                         <b>Population:&nbsp;</b>
-                        {props.population}
+                        {props.population.toLocaleString()}
                     </Card.Text>
                     <Card.Text className="mb-0">
                         <b>Capital:&nbsp;</b>

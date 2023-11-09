@@ -15,7 +15,9 @@ const Region = () => {
         axios
         .get(`https://restcountries.com/v3.1/region/${regionName}`)
         .then((response) => {
-            setRegion(response.data)
+            const sortedCountries = [...response.data].sort((a, b) => a.name.common.localeCompare(b.name.common));
+
+            setRegion(sortedCountries);
         })
         .catch((error) => {
         console.log(error);
